@@ -25,7 +25,7 @@ from PySide6.QtWidgets import (
 
 APP_NAME = "Rayko Bazzite Toolbox"
 APP_VERSION = "2.1.0"
-UPDATE_MANIFEST_URL = "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/main/update.json"
+UPDATE_MANIFEST_URL = "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/main/update.json?channel=stable"
 GAME_DISK = Path("/var/mnt/jeux")
 REPORT_DIR = Path.home() / "Rayko-Reports"
 BACKUP_DIR = Path.home() / "Rayko-Backups"
