@@ -4,17 +4,17 @@
   "files": [
     {
       "name": "rayko_toolbox.py",
-      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/main/rayko_toolbox.py",
-      "sha256": "b2989cc9e4561e5ef77153760418f392871568397569df88f9a8a83519383226"
+      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/b28335eb1891b8c528b2a39829272fbf51a3c849/rayko_toolbox.py",
+      "sha256": "bf108f8d13a3ac9ccd741d628975cf490d644d9a2bd202d7c89a4c5bb5c492dc"
     },
     {
       "name": "rayko-toolbox",
-      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/main/rayko-toolbox",
+      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/b28335eb1891b8c528b2a39829272fbf51a3c849/rayko-toolbox",
       "sha256": "58fcc0b1922b11181950c992d0cdef858cd0fe37e1d0482261b0d01744e8fa49"
     },
     {
       "name": "rayko-toolbox.svg",
-      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/main/rayko-toolbox.svg",
+      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/b28335eb1891b8c528b2a39829272fbf51a3c849/rayko-toolbox.svg",
       "sha256": "8b3e7613409818f43da478163090ae011a066897baff679dfa8a51e40b38afb7"
     }
   ]
