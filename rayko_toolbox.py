@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import html
+import base64
 import json
 import os
 import shlex
@@ -25,7 +26,7 @@ from PySide6.QtWidgets import (
 
 APP_NAME = "Rayko Bazzite Toolbox"
 APP_VERSION = "2.1.0"
-UPDATE_MANIFEST_URL = "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/main/update.json?channel=stable"
+UPDATE_MANIFEST_URL = "https://api.github.com/repos/adriendu38100/rayko-bazzite-toolbox/contents/update.json"
 GAME_DISK = Path("/var/mnt/jeux")
 REPORT_DIR = Path.home() / "Rayko-Reports"
 BACKUP_DIR = Path.home() / "Rayko-Backups"
@@ -591,6 +592,9 @@ printf 'SYSTEM=%s\nFLATPAK=%s\n' "$system" "$flatpak_count"
                 QMessageBox.warning(self, "Mise à jour", "La vérification en ligne a échoué. Réessayez plus tard.")
             return
         try:
+            response = json.loads(raw)
+            if isinstance(response, dict) and response.get("encoding") == "base64":
+                raw = base64.b64decode(response["content"]).decode("utf-8")
             manifest = json.loads(raw)
             remote_version = str(manifest["version"])
             files = manifest["files"]
