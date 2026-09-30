@@ -1,0 +1,50 @@
+             .',;::::;,'.                 adrien@Adrien
+         .';:cccccccccccc:;,.             -------------
+      .;cccccccccccccccccccccc;.          OS: Bazzite x86_64
+    .:cccccccccccccccccccccccccc:.        Kernel: Linux 7.2.7-ogc1.1.fc44.x86_64
+  .;ccccccccccccc;.:dddl:.;ccccccc;.      Uptime: 45 mins
+ .:ccccccccccccc;OWMKOOXMWd;ccccccc:.     Packages: 1 (appimage), 74 (flatpak-system), 11 (flatpak-user), 2832 (rpm)
+.:ccccccccccccc;KMMc;cc;xMMc;ccccccc:.    Shell: bash 5.3.9
+,cccccccccccccc;MMM.;cc;;WW:;cccccccc,    Display (SKG2522): 1920x1080 in 27", 180 Hz [External] *
+:cccccccccccccc;MMM.;cccccccccccccccc:    Display (VG240Y): 1920x1080 in 24", 75 Hz [External]
+:ccccccc;oxOOOo;MMM000k.;cccccccccccc:    Desktop Environment: KDE Plasma 6.7.5
+cccccc;0MMKxdd:;MMMkddc.;cccccccccccc;    Window Manager: KWin (Wayland)
+ccccc;XMO';cccc;MMM.;cccccccccccccccc'    WM Theme: Breeze
+ccccc;MMo;ccccc;MMW.;ccccccccccccccc;     Theme: Oxygen (Dark) [Qt], Vapor [GTK2/3]
+ccccc;0MNc.ccc.xMMd;ccccccccccccccc;      Icons: oxygen [Qt], oxygen [GTK2/3/4]
+cccccc;dNMWXXXWM0:;cccccccccccccc:,       Font: Noto Sans (10pt) [Qt], Noto Sans (10pt) [GTK2/3/4]
+cccccccc;.:odl:.;cccccccccccccc:,.        Cursor: Oxygen_Zion (24px)
+ccccccccccccccccccccccccccccc:'.          Terminal: codex
+:ccccccccccccccccccccccc:;,..             CPU: Intel(R) Core(TM) i5-14600K (12+8) @ 5.30 GHz
+ ':cccccccccccccccc::;,.                  GPU: NVIDIA GeForce RTX 2070 [Discrete]
+                                          Memory: 5.88 GiB / 31.01 GiB (19%)
+                                          Swap: 0 B / 15.51 GiB (0%)
+                                          Disk (/): 46.63 MiB / 46.63 MiB (100%) - overlay [Read-only]
+                                          Disk (/etc): 423.38 GiB / 444.54 GiB (95%) - btrfs
+                                          Disk (/var/mnt/jeux): 740.23 GiB / 953.87 GiB (78%) - ntfs3
+                                          Local IP (eno1): 192.168.1.35/24
+                                          Locale: C.UTF-8
+                                          
+                                          [40m   [41m   [42m   [43m   [44m   [45m   [46m   [47m   [m
+                                          [5m[100m   [101m   [102m   [103m   [104m   [105m   [106m   [107m   [m
+{
+  "version": "2.1.0",
+  "notes": "Version 2.1.0\n• Gestion des versions et mises à jour en ligne\n• Installation vérifiée par empreinte SHA-256\n• Option de mise à jour automatique\n• Surveillance système et notifications\n• Correction de la vérification Flatpak 1.18",
+  "files": [
+    {
+      "name": "rayko_toolbox.py",
+      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/main/rayko_toolbox.py",
+      "sha256": "74dbd6e9993880b8c5ae99f769ca7e8c9e99789076b10d5947fac9ae5ef33c2d"
+    },
+    {
+      "name": "rayko-toolbox",
+      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/main/rayko-toolbox",
+      "sha256": "58fcc0b1922b11181950c992d0cdef858cd0fe37e1d0482261b0d01744e8fa49"
+    },
+    {
+      "name": "rayko-toolbox.svg",
+      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/main/rayko-toolbox.svg",
+      "sha256": "8b3e7613409818f43da478163090ae011a066897baff679dfa8a51e40b38afb7"
+    }
+  ]
+}
