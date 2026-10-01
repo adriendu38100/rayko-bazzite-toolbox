@@ -1,5 +1,12 @@
 # Historique des versions
 
+## 2.1.1
+
+- ajout du bouton « Exporter le journal » vers `~/Rayko-Reports` ;
+- suppression de la seconde mise à jour Flatpak lorsque `ujust update` la gère déjà ;
+- détection du dépôt GeForce NOW proposant une version plus ancienne ;
+- masque temporaire de GeForce NOW durant la mise à jour, automatiquement retiré ensuite.
+
 ## 2.1.0
 
 - ajout de la gestion des versions et de la page « Toolbox & mises à jour » ;
