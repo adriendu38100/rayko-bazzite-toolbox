@@ -1,20 +1,20 @@
 {
-  "version": "2.1.0",
-  "notes": "Version 2.1.0\n• Gestion des versions et mises à jour en ligne\n• Installation vérifiée par empreinte SHA-256\n• Option de mise à jour automatique\n• Surveillance système et notifications\n• Correction de la vérification Flatpak 1.18",
+  "version": "2.1.1",
+  "notes": "Version 2.1.1\n• Bouton d’export du journal vers ~/Rayko-Reports\n• Suppression de la double mise à jour Flatpak\n• Gestion sûre du dépôt GeForce NOW lorsqu’il propose une version plus ancienne\n• Masque temporaire automatiquement retiré après la mise à jour",
   "files": [
     {
       "name": "rayko_toolbox.py",
-      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/b28335eb1891b8c528b2a39829272fbf51a3c849/rayko_toolbox.py",
-      "sha256": "bf108f8d13a3ac9ccd741d628975cf490d644d9a2bd202d7c89a4c5bb5c492dc"
+      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/ad9d786807a6ddfe499152543766c210bb15610c/rayko_toolbox.py",
+      "sha256": "ee19bc1ef419ab384b7b1ef0eb6bc10da9022bd3aea90799a79ab255cdf17466"
     },
     {
       "name": "rayko-toolbox",
-      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/b28335eb1891b8c528b2a39829272fbf51a3c849/rayko-toolbox",
+      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/ad9d786807a6ddfe499152543766c210bb15610c/rayko-toolbox",
       "sha256": "58fcc0b1922b11181950c992d0cdef858cd0fe37e1d0482261b0d01744e8fa49"
     },
     {
       "name": "rayko-toolbox.svg",
-      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/b28335eb1891b8c528b2a39829272fbf51a3c849/rayko-toolbox.svg",
+      "url": "https://raw.githubusercontent.com/adriendu38100/rayko-bazzite-toolbox/ad9d786807a6ddfe499152543766c210bb15610c/rayko-toolbox.svg",
       "sha256": "8b3e7613409818f43da478163090ae011a066897baff679dfa8a51e40b38afb7"
     }
   ]
