@@ -25,7 +25,7 @@ from PySide6.QtWidgets import (
 )
 
 APP_NAME = "Rayko Bazzite Toolbox"
-APP_VERSION = "2.1.0"
+APP_VERSION = "2.1.1"
 UPDATE_MANIFEST_URL = "https://api.github.com/repos/adriendu38100/rayko-bazzite-toolbox/contents/update.json"
 GAME_DISK = Path("/var/mnt/jeux")
 REPORT_DIR = Path.home() / "Rayko-Reports"
@@ -474,12 +474,15 @@ printf 'SYSTEM=%s\nFLATPAK=%s\n' "$system" "$flatpak_count"
         self.status_label.setObjectName("status")
         clear = QPushButton("Effacer")
         clear.clicked.connect(lambda: self.log.clear())
+        export = QPushButton("Exporter le journal")
+        export.clicked.connect(self.export_log_report)
         self.stop_button = QPushButton("Arrêter")
         self.stop_button.setEnabled(False)
         self.stop_button.clicked.connect(self.stop_process)
         log_header.addWidget(log_label)
         log_header.addWidget(self.status_label)
         log_header.addStretch()
+        log_header.addWidget(export)
         log_header.addWidget(clear)
         log_header.addWidget(self.stop_button)
         right_layout.addLayout(log_header)
@@ -531,8 +534,9 @@ printf 'SYSTEM=%s\nFLATPAK=%s\n' "$system" "$flatpak_count"
         self.toolbox_update_status.setObjectName("muted")
         self.toolbox_update_status.setWordWrap(True)
         self.toolbox_notes = QLabel(
-            "Version 2.1.0\n• Gestion des versions et mises à jour en ligne\n"
-            "• Surveillance système et notifications\n• Interface en arrière-plan"
+            "Version 2.1.1\n• Export du journal intégré\n"
+            "• Mise à jour Bazzite sans double exécution Flatpak\n"
+            "• Gestion sûre du dépôt GeForce NOW en retard"
         )
         self.toolbox_notes.setWordWrap(True)
         self.auto_toolbox_updates = QCheckBox("Télécharger et installer automatiquement les nouvelles versions")
@@ -688,11 +692,50 @@ printf 'SYSTEM=%s\nFLATPAK=%s\n' "$system" "$flatpak_count"
         return scroll
 
     def maintenance_actions(self) -> list[Action]:
-        update = """set -o pipefail
+        update = r"""set -o pipefail
 echo '=== Mise à jour de Bazzite ==='
-if command -v ujust >/dev/null; then ujust update; else rpm-ostree upgrade; fi
-echo; echo '=== Mise à jour des Flatpak ==='; flatpak update -y
-if command -v brew >/dev/null; then echo; echo '=== Mise à jour Homebrew ==='; brew update && brew upgrade; fi"""
+gfn_app='com.nvidia.geforcenow'
+gfn_mask_added=0
+
+# NVIDIA peut momentanément publier une version plus ancienne. Dans ce cas précis,
+# masquer l’application pendant la mise à jour évite un faux échec sans rétrograder.
+if flatpak info --user "$gfn_app" >/dev/null 2>&1; then
+  local_v=$(LC_ALL=C flatpak info --user "$gfn_app" 2>/dev/null | sed -n 's/^[[:space:]]*Subject: Version:\([^[:space:]]*\).*/\1/p')
+  remote_v=$(LC_ALL=C flatpak remote-info --user GeForceNOW "$gfn_app" 2>/dev/null | sed -n 's/^[[:space:]]*Subject: Version:\([^[:space:]]*\).*/\1/p')
+  oldest=$(printf '%s\n%s\n' "$local_v" "$remote_v" | sort -V | head -1)
+  if [ -n "$local_v" ] && [ -n "$remote_v" ] && [ "$local_v" != "$remote_v" ] && [ "$oldest" = "$remote_v" ]; then
+    if ! flatpak mask --user 2>/dev/null | grep -Fxq "$gfn_app"; then
+      echo "ℹ GeForce NOW $local_v est plus récent que le dépôt ($remote_v). Ignoré temporairement."
+      flatpak mask --user "$gfn_app"
+      gfn_mask_added=1
+    fi
+  fi
+fi
+
+restore_gfn_mask() {
+  if [ "$gfn_mask_added" -eq 1 ]; then
+    flatpak mask --user --remove "$gfn_app" >/dev/null 2>&1 || true
+    echo 'ℹ Masque temporaire GeForce NOW retiré.'
+  fi
+}
+trap restore_gfn_mask EXIT
+
+if command -v ujust >/dev/null; then
+  # ujust gère déjà rpm-ostree, Flatpak et Homebrew sur Bazzite.
+  ujust update
+  update_status=$?
+else
+  update_status=0
+  rpm-ostree upgrade || update_status=$?
+  echo; echo '=== Mise à jour des Flatpak ==='
+  flatpak update -y || update_status=$?
+  if command -v brew >/dev/null; then
+    echo; echo '=== Mise à jour Homebrew ==='
+    brew update && brew upgrade || update_status=$?
+  fi
+fi
+
+exit ${update_status}"""
         clean = """set -o pipefail
 echo '=== Nettoyage prudent ==='
 flatpak uninstall --unused -y
@@ -757,6 +800,26 @@ echo; pgrep -x steam >/dev/null && echo '✓ Steam est lancé' || echo 'ℹ Stea
         self.page_title.setText(titles[index])
         for i, button in enumerate(self.nav_buttons):
             button.setChecked(i == index)
+
+    def export_log_report(self):
+        REPORT_DIR.mkdir(parents=True, exist_ok=True)
+        path = REPORT_DIR / f"rayko-toolbox-log-{datetime.now():%Y-%m-%d_%H-%M-%S}.txt"
+        content = self.log.toPlainText().strip()
+        if not content:
+            QMessageBox.information(self, "Exporter le journal", "Le journal est vide.")
+            return
+        header = (
+            f"{APP_NAME} {APP_VERSION}\n"
+            f"Journal exporté le {datetime.now():%d/%m/%Y à %H:%M:%S}\n"
+            f"{'=' * 60}\n\n"
+        )
+        try:
+            path.write_text(header + content + "\n", encoding="utf-8")
+        except OSError as error:
+            QMessageBox.warning(self, "Exporter le journal", f"Impossible d’enregistrer le journal :\n{error}")
+            return
+        self.status_label.setText("Journal exporté")
+        QMessageBox.information(self, "Journal exporté", f"Le rapport du terminal a été créé :\n{path}")
 
     def refresh_dashboard(self):
         cpu = run_text(["sh", "-c", "lscpu | sed -n 's/^Model name:[[:space:]]*//p' | head -1"])
